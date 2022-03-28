@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kgamepedia/main.dart';
 import 'package:kgamepedia/screens/signin_screen.dart';
 import 'package:kgamepedia/widgets/my_behavior.dart';
+import 'package:kgamepedia/widgets/navigation_bar.dart';
 
 class LoginPage extends StatefulWidget {
   static String routeName = '/routeLoginPage';
@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                       .hasMatch(widget.email.toString())) {
                                     if (widget.email == _tempEmail && widget.password == _tempPassword) {
-                                      Navigator.pushNamed(context, MyHomePage.routeName);
+                                      Navigator.pushNamed(context, GNavBar.routeName);
                                       _emailController.clear();
                                       _passwordController.clear();
                                     } else {
