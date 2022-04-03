@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
   google_nav_bar: ^5.0.5
-  easy_splash_screen: ^1.0.3
   line_icons: ^2.0.1
   url_launcher: ^6.0.20
   flutter_rating_bar: ^4.0.0
