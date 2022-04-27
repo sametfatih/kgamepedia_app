@@ -2,27 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
-import '../screens/categories_screen.dart';
-import '../screens/home_screen.dart';
+import 'categories_page.dart';
+import 'home_page.dart';
+import 'likes_page.dart';
+import 'profile_page.dart';
+import 'search_page.dart';
 
-class GNavBar extends StatefulWidget {
+class NavigationPage extends StatefulWidget {
   static String routeName = '/routeGNavBar';
-  const GNavBar({Key? key}) : super(key: key);
+  final String userID;
+  const NavigationPage({Key? key, required this.userID}) : super(key: key);
 
   @override
-  _GNavBarState createState() => _GNavBarState();
+  _NavigationPageState createState() => _NavigationPageState();
 }
 
-class _GNavBarState extends State<GNavBar> {
+class _NavigationPageState extends State<NavigationPage> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-  static const List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
-    CategoriesPage(),
-    //SearchPage(),
-    //LikesPage(),
-    //ProfilePage(),
-  ];
+  List<Widget> _widgetOptions() => <Widget>[
+        HomePage(),
+        CategoriesPage(),
+        SearchPage(),
+        LikesPage(currentUserID: widget.userID),
+        ProfilePage(
+          currentUserID: widget.userID,
+        ),
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +38,7 @@ class _GNavBarState extends State<GNavBar> {
         child: Scaffold(
           backgroundColor: Colors.white,
           body: Center(
-            child: _widgetOptions.elementAt(_selectedIndex),
+            child: _widgetOptions().elementAt(_selectedIndex),
           ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
@@ -58,29 +64,28 @@ class _GNavBarState extends State<GNavBar> {
                 color: Colors.black,
                 tabs: [
                   GButton(
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 48),
+                    // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 48),
                     icon: LineIcons.home,
                     text: 'Anasayfa',
                   ),
                   GButton(
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 48),
+                    // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 48),
                     icon: LineIcons.icons,
                     text: 'Kategoriler',
                   ),
-
-                  // GButton(
-                  //   padding: EdgeInsets.symmetric(vertical: 12, horizontal: 32),
-                  //   icon: LineIcons.search,
-                  //   text: 'Ara',
-                  // ),
-                  // GButton(
-                  //   icon: LineIcons.heart,
-                  //   text: 'Beğenilenler',
-                  // ),
-                  // GButton(
-                  //   icon: LineIcons.user,
-                  //   text: 'Profil',
-                  // ),
+                  GButton(
+                    // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 32),
+                    icon: LineIcons.search,
+                    text: 'Ara',
+                  ),
+                  GButton(
+                    icon: LineIcons.heart,
+                    text: 'Beğenilenler',
+                  ),
+                  GButton(
+                    icon: LineIcons.user,
+                    text: 'Profil',
+                  ),
                 ],
                 selectedIndex: _selectedIndex,
                 onTabChange: (index) {

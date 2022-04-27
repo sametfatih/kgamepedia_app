@@ -1,28 +1,36 @@
-import 'package:kgamepedia/screens/creator_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kgamepedia/pages/creator_page.dart';
+import 'package:line_icons/line_icons.dart';
 
 AppBar myAppBar(BuildContext context, String title) => AppBar(
-      toolbarHeight: 48,
+      automaticallyImplyLeading: false,
+      toolbarHeight: 64,
       elevation: 0.2,
       backgroundColor: Colors.white,
       centerTitle: true,
-      leadingWidth: 65,
+      leadingWidth: 80,
       leading: title == 'KGAMEPEDIA'
           ? GestureDetector(
               onDoubleTap: () {
                 Navigator.pushNamed(context, CreatorPage.routeName);
               },
-              child: Container(
-                  margin: EdgeInsets.only(left: 16, top: 5, bottom: 5),
-                  child: Image.asset(
-                    'assets/images/logos/kgame_logo.png',
-                    fit: BoxFit.fill,
-                  )),
-            )
+              child: Icon(
+                LineIcons.gamepad,
+                color: Colors.black,
+                size: 48,
+              )
+              // Container(
+              //     margin: EdgeInsets.only(left: 16, top: 5, bottom: 5),
+              //     child: Image.asset(
+              //       'assets/images/logos/kgame_logo.png',
+              //       fit: BoxFit.fill,
+              //     )),
+              )
           : null,
       title: Text(
         title,
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 24.0, color: Colors.black, fontWeight: FontWeight.w500),
       ),
       actions: [
         title == 'KGAMEPEDIA'
@@ -33,7 +41,8 @@ AppBar myAppBar(BuildContext context, String title) => AppBar(
                     Icons.logout,
                     color: Colors.black,
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
                     Navigator.pop(context);
                   },
                 ),
@@ -52,10 +61,13 @@ PreferredSizeWidget myGameAppBar(BuildContext context, String title) => AppBar(
       ),
       elevation: 0.2,
       backgroundColor: Colors.white,
-      toolbarHeight: 48.0,
+      toolbarHeight: 64.0,
       centerTitle: true,
       title: Text(
-        title,
-        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        title.toUpperCase(),
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );

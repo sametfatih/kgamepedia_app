@@ -1,23 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kgamepedia/screens/creator_screen.dart';
-import 'package:kgamepedia/screens/game_maker_screen.dart';
-import 'package:kgamepedia/screens/game_screens/back_4_blood_screen.dart';
-import 'package:kgamepedia/screens/game_screens/csgo_screen.dart';
-import 'package:kgamepedia/screens/game_screens/dirt_rally_screen.dart';
-import 'package:kgamepedia/screens/game_screens/doom_3_screen.dart';
-import 'package:kgamepedia/screens/game_screens/dying_light2_screen.dart';
-import 'package:kgamepedia/screens/game_screens/forza5_screen.dart';
-import 'package:kgamepedia/screens/game_screens/gow_screen.dart';
-import 'package:kgamepedia/screens/game_screens/gta_v_screen.dart';
-import 'package:kgamepedia/screens/game_screens/minecraft_screen.dart';
-import 'package:kgamepedia/screens/login_screen.dart';
-import 'package:kgamepedia/widgets/navigation_bar.dart';
+import 'package:kgamepedia/pages/categorie_pages/fps_page.dart';
+import 'package:kgamepedia/pages/categorie_pages/open_world_page.dart';
+import 'package:kgamepedia/pages/categorie_pages/racing_page.dart';
+import 'package:kgamepedia/pages/categorie_pages/survival_page.dart';
+import 'package:kgamepedia/pages/creator_page.dart';
+import 'package:kgamepedia/pages/login_page.dart';
+import 'package:kgamepedia/pages/login_signup_page.dart';
+import 'package:kgamepedia/services/user_preferences.dart';
 
-import 'screens/signin_screen.dart';
+import 'pages/signup_page.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await UserPreferences.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MyApp());
 }
@@ -32,22 +30,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: Colors.white,
       ),
-      initialRoute: LoginPage.routeName,
+      initialRoute: LoginSignUp.routeName,
       routes: {
+        LoginSignUp.routeName: (context) => LoginSignUp(),
         LoginPage.routeName: (context) => LoginPage(),
-        SignInPage.routeName: (context) => SignInPage(),
+        SignUpPage.routeName: (context) => SignUpPage(),
         CreatorPage.routeName: (context) => CreatorPage(),
-        GameMakerPage.routeName: (context) => GameMakerPage(),
-        GNavBar.routeName: (context) => GNavBar(),
-        DyigLight2Page.routeName: (context) => DyigLight2Page(),
-        CSGOPage.routeName: (context) => CSGOPage(),
-        GOWPage.routeName: (context) => GOWPage(),
-        GtaVPage.routeName: (context) => GtaVPage(),
-        MinecraftPage.routeName: (context) => MinecraftPage(),
-        Doom3Page.routeName: (context) => Doom3Page(),
-        Back4BloodPage.routeName: (context) => Back4BloodPage(),
-        Forza5Page.routeName: (context) => Forza5Page(),
-        DirtRallyPage.routeName: (context) => DirtRallyPage(),
+        '/${FpsCategory.categorieName}': (context) => FpsCategory(),
+        '/${RacingCategory.categorieName}': (context) => RacingCategory(),
+        '/${SurvivalCategory.categorieName}': (context) => SurvivalCategory(),
+        '/${OpenWorldCategory.categorieName}': (context) => OpenWorldCategory(),
       },
     );
   }

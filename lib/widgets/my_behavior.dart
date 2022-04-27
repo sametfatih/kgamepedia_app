@@ -6,3 +6,11 @@ class MyBehavior extends ScrollBehavior {
     return child;
   }
 }
+
+Widget MySingleChildScrollView(Axis direction, Widget child) => ScrollConfiguration(
+      behavior: MyBehavior(),
+      child: SingleChildScrollView(
+        scrollDirection: direction,
+        child: child,
+      ),
+    );

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "783785138290",
+    "project_id": "kgamepedia",
+    "storage_bucket": "kgamepedia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783785138290:android:c27a7d9e55432ca1e44aeb",
+        "android_client_info": {
+          "package_name": "com.kgamepedia.kgamepedia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "783785138290-e0em5krg4u3sqf13720slrk3vga8133s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3dFj9q3__Pf2IapJ1hvajeIEYdHqc5ZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "783785138290-e0em5krg4u3sqf13720slrk3vga8133s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
