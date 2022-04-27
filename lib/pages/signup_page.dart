@@ -18,7 +18,6 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  String? _email, _password;
   int _age = 18;
   bool? _passwordVisible;
   String _dropdownCountry = Constants().countrys[0];
@@ -304,7 +303,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               // if (RegExp("\b([A-Z][a-z]+[ ]*)+").hasMatch(_nameController.text) &&
                               //     RegExp("\b([A-Z][a-z]+[ ]*)+").hasMatch(_surnameController.text))
 
-                              
                               if (true) {
                                 await _auth.createUserWithEmailAndPassword(
                                   email: _emailController.text.trim(),
