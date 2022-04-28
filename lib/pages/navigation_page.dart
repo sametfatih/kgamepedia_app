@@ -19,7 +19,6 @@ class NavigationPage extends StatefulWidget {
 
 class _NavigationPageState extends State<NavigationPage> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   List<Widget> _widgetOptions() => <Widget>[
         HomePage(),
         CategoriesPage(),

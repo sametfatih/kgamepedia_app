@@ -11,6 +11,15 @@ class FirebaseHelper {
 }
 
 class FirebaseGameHelper extends FirebaseHelper {
+  Future<Game?> readGame(String gameId) async {
+    final docGame = FirebaseFirestore.instance.collection('games').doc(gameId);
+    final snapshot = await docGame.get();
+    if (snapshot.exists) {
+      return Game.fromJson(snapshot.data()!);
+    }
+    return null;
+  }
+
   //Oyunlar koleksiyonundaki oyunların herbirini json olarak listeleyerek getirir.
   Stream<List<Game>> readGames() {
     return database
@@ -19,6 +28,7 @@ class FirebaseGameHelper extends FirebaseHelper {
         .map((snapshot) => snapshot.docs.map((doc) => Game.fromJson(doc.data())).toList());
   }
 
+  //Oyunlar koleksiyonundaki oyunları Search page için json olarak listeleyerek getirir.
   Stream<List<Game>> readGamesForSearch(String userSelect, String tempSearch, List category) {
     return database
         .collection('games')

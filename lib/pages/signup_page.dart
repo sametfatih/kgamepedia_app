@@ -54,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: CircleAvatar(
                           maxRadius: 48.0,
                           minRadius: 48.0,
-                          backgroundImage: AssetImage('assets/images/user_avatars/female_avatar.png'),
+                          backgroundImage: AssetImage('assets/images/user_avatars/male_avatar.png'),
                           backgroundColor: Colors.white,
                         ),
                       ),
@@ -300,10 +300,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
                           try {
                             if (_nameController.text.length > 2 && _surnameController.text.length > 2) {
-                              // if (RegExp("\b([A-Z][a-z]+[ ]*)+").hasMatch(_nameController.text) &&
-                              //     RegExp("\b([A-Z][a-z]+[ ]*)+").hasMatch(_surnameController.text))
-
-                              if (true) {
+                              if (RegExp(r"^\s*[A-Za-z]{3}[^\n\d]*$").hasMatch(_nameController.text) &&
+                                  RegExp(r"^\s*[A-Za-z]{3}[^\n\d]*$").hasMatch(_surnameController.text)) {
                                 await _auth.createUserWithEmailAndPassword(
                                   email: _emailController.text.trim(),
                                   password: _passwordController.text.trim(),

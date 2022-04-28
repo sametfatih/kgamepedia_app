@@ -17,7 +17,7 @@ class SearchPage extends StatefulWidget {
 enum _MenuValues { game, category, gameMaker, ascdesc }
 
 class _SearchPageState extends State<SearchPage> {
-  final FirebaseGameHelper gameHelper = FirebaseGameHelper();
+  final FirebaseGameHelper _gameHelper = FirebaseGameHelper();
   final BuildWidgets __buildWidgets = BuildWidgets();
   String tempSearch = '';
   String userSelect = 'gameName'; //default olarak Oyun Adı ile arama yapılması sağlandı.
@@ -69,7 +69,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
             StreamBuilder<List<Game?>>(
-                stream: gameHelper.readGamesForSearch(userSelect, tempSearch, category),
+                stream: _gameHelper.readGamesForSearch(userSelect, tempSearch, category),
                 builder: (context, snapshot) => __buildWidgets.buildGameWidgetA(context, snapshot)),
           ],
         ),

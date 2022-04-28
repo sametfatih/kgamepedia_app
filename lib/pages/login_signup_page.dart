@@ -36,7 +36,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                   padding: const EdgeInsets.only(bottom: 12.0),
                   child: Material(
                     color: Colors.white,
-                    elevation: 6,
+                    elevation: 4,
                     borderRadius: BorderRadius.circular(80),
                     child: TabBar(
                         overlayColor: MaterialStateProperty.all(Colors.transparent),

@@ -46,9 +46,9 @@ class _LoginPageState extends State<LoginPage> {
                     elevation: 12.0,
                     shape: CircleBorder(),
                     child: CircleAvatar(
-                      maxRadius: 42.0,
-                      minRadius: 42.0,
-                      backgroundImage: AssetImage('assets/images/user_avatars/female_avatar.png'),
+                      maxRadius: 48.0,
+                      minRadius: 48.0,
+                      backgroundImage: AssetImage('assets/images/user_avatars/male_avatar.png'),
                       backgroundColor: Colors.white,
                     ),
                   ),

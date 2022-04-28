@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kgamepedia/models/category.dart';
@@ -15,8 +14,8 @@ import 'package:kgamepedia/widgets/my_behavior.dart';
 import 'package:line_icons/line_icons.dart';
 
 class BuildWidgets {
-  FirebaseStorageHelper storageHelper = FirebaseStorageHelper();
-  FirebaseGameHelper gameHelper = FirebaseGameHelper();
+  final FirebaseStorageHelper _storageHelper = FirebaseStorageHelper();
+  final FirebaseGameHelper _gameHelper = FirebaseGameHelper();
 
   //Sol kısımda Oyun Resmi, sağ kısımda oyun bilgilerini gösteren widget.
   Widget buildGameWidgetA(BuildContext context, AsyncSnapshot<List<Game?>> snapshot) {
@@ -98,7 +97,7 @@ class BuildWidgets {
     //Oyun platformlarını build ediyor.
     Widget buildPlatforms(String gameId) {
       return FutureBuilder(
-          future: gameHelper.getPlatforms(gameId),
+          future: _gameHelper.getPlatforms(gameId),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               final data = snapshot.data;
@@ -147,7 +146,7 @@ class BuildWidgets {
     //soldaki gameImage i build ediyor.
     Widget buildGameImage(String gameId) {
       return FutureBuilder(
-          future: storageHelper.getGameImageURL(gameId),
+          future: _storageHelper.getGameImageURL(gameId),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
               return Padding(
@@ -197,7 +196,7 @@ class BuildWidgets {
     //BackgroundImage i build ediyor.
     Widget buildBackgroundImage(String gameId, String screenshotId) {
       return FutureBuilder(
-          future: storageHelper.getGameScreenshotImageURL(gameId, screenshotId),
+          future: _storageHelper.getGameBacgroundImageURL(gameId, screenshotId),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return SizedBox(
@@ -301,16 +300,8 @@ class BuildWidgets {
 
   //Sol kısımda Oyun Resmi, sağ kısımda oyun bilgilerini gösteren widget. Likes Page için değiştirildi.
   Widget buildGameWidgetAForLikes(BuildContext context, AsyncSnapshot<KgameUser?> snapshot) {
-    Widget gameImageAndName(
-        BuildContext context,
-        Widget routeName,
-        Widget gameImage,
-        Widget gameName,
-        Widget backgroundImage,
-        // double rating,
-        // int ratingCounter,
-        Widget platforms,
-        Widget gameMakerName) {
+    Widget gameImageAndName(BuildContext context, Widget routeName, Widget gameImage, Widget gameName,
+        Widget backgroundImage, Widget platforms, Widget ratings, Widget gameMakerName) {
       return Padding(
         padding: const EdgeInsets.all(10.0),
         child: GestureDetector(
@@ -335,52 +326,34 @@ class BuildWidgets {
                   Row(
                     children: [
                       gameImage,
-                      SizedBox(
-                        width: 8.0,
-                      ),
+                      VerticalDivider(),
                       Expanded(
                         child: SizedBox(
                           height: 140.0,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              gameName,
-                              SizedBox(height: 6),
-                              gameMakerName,
-                              Row(
-                                children: [
-                                  Container(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                gameName,
+                                SizedBox(height: 6),
+                                gameMakerName,
+                                Row(
+                                  children: [
+                                    Container(
                                       margin: EdgeInsets.symmetric(vertical: 6.0),
-                                      child: Text('Platformlar: ',
-                                          style:
-                                              TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
-                                  platforms,
-                                ],
-                              ),
-                              // Row(
-                              //   children: [
-                              //     Container(
-                              //         margin: EdgeInsets.symmetric(vertical: 3.0),
-                              //         child: Text('Puan: ',
-                              //             style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
-                              //     Text('$ratingCounter ',
-                              //         style: TextStyle(
-                              //             color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
-                              //     RatingBarIndicator(
-                              //       itemPadding: EdgeInsets.symmetric(horizontal: 1.0),
-                              //       rating: rating,
-                              //       itemBuilder: (context, index) => Icon(
-                              //         Icons.star,
-                              //         color: Colors.red,
-                              //       ),
-                              //       itemCount: 5,
-                              //       itemSize: 25.0,
-                              //       direction: Axis.horizontal,
-                              //     ),
-                              //   ],
-                              // ),
-                            ],
+                                      child: Text(
+                                        'Platformlar: ',
+                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                    platforms,
+                                  ],
+                                ),
+                                ratings,
+                              ],
+                            ),
                           ),
                         ),
                       )
@@ -396,7 +369,7 @@ class BuildWidgets {
 
     Widget buildGameName(String gameId) {
       return FutureBuilder(
-          future: gameHelper.getGameName(gameId),
+          future: _gameHelper.getGameName(gameId),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final data = snapshot.data;
@@ -410,7 +383,7 @@ class BuildWidgets {
 
     Widget buildGameMakerName(String gameId) {
       return FutureBuilder(
-          future: gameHelper.getGameMakerName(gameId),
+          future: _gameHelper.getGameMakerName(gameId),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final data = snapshot.data;
@@ -424,7 +397,7 @@ class BuildWidgets {
     //Oyun platformlarını build ediyor.
     Widget buildPlatforms(String gameId) {
       return FutureBuilder(
-          future: gameHelper.getPlatforms(gameId),
+          future: _gameHelper.getPlatforms(gameId),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               final data = snapshot.data;
@@ -473,7 +446,7 @@ class BuildWidgets {
     //soldaki gameImage i build ediyor.
     Widget buildGameImage(String gameId) {
       return FutureBuilder(
-          future: storageHelper.getGameImageURL(gameId),
+          future: _storageHelper.getGameImageURL(gameId),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
               return Padding(
@@ -523,7 +496,7 @@ class BuildWidgets {
     //BackgroundImage i build ediyor.
     Widget buildBackgroundImage(String gameId, String screenshotId) {
       return FutureBuilder(
-          future: storageHelper.getGameScreenshotImageURL(gameId, screenshotId),
+          future: _storageHelper.getGameBacgroundImageURL(gameId, screenshotId),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return SizedBox(
@@ -552,6 +525,56 @@ class BuildWidgets {
           });
     }
 
+    //Kullanıcıların verdiği puanın ortalamasını widget şeklinde getiriyor.
+    Widget buildRatingBar(String gameId) {
+      return FutureBuilder<Game?>(
+        future: _gameHelper.readGame(gameId),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List ratings = snapshot.data!.ratings;
+
+            double ratingAVG = 0;
+            for (dynamic element in ratings) {
+              ratingAVG = ratingAVG + element;
+            }
+            ratingAVG = ratingAVG / ratings.length;
+
+            return Row(
+              children: [
+                Container(
+                    margin: EdgeInsets.symmetric(vertical: 3.0),
+                    child:
+                        Text('Puan: ', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
+                Text('(${ratings.length.toString()})',
+                    style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: RatingBarIndicator(
+                    rating: double.tryParse(ratingAVG.toString())!,
+                    itemBuilder: (context, index) => Icon(
+                      Icons.star,
+                      color: Colors.red,
+                    ),
+                    itemCount: 5,
+                    itemSize: 25.0,
+                    direction: Axis.horizontal,
+                    unratedColor: Colors.white30,
+                  ),
+                ),
+                Text(ratingAVG.toStringAsFixed(1),
+                    style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w500)),
+              ],
+            );
+          } else {
+            return Text(
+              'Yükleniyor',
+              style: TextStyle(color: Colors.white),
+            );
+          }
+        },
+      );
+    }
+
     getUserLikes(AsyncSnapshot<KgameUser?> snapshot) {
       final user = snapshot.data;
       return user?.userLikes
@@ -562,6 +585,7 @@ class BuildWidgets {
                 buildGameName(gameId),
                 buildBackgroundImage(gameId, 'screenshot_1'),
                 buildPlatforms(gameId),
+                buildRatingBar(gameId),
                 buildGameMakerName(gameId),
               ))
           .toList();
@@ -589,7 +613,7 @@ class BuildWidgets {
   Widget buildGameWidgetB(AsyncSnapshot<List<Game?>> snapshot) {
     Widget buildGameImage(Widget routePage, String gameId) {
       return FutureBuilder(
-          future: storageHelper.getGameImageURL(gameId),
+          future: _storageHelper.getGameImageURL(gameId),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
               return Padding(
@@ -683,7 +707,7 @@ class BuildWidgets {
   Widget buildGameWidgetBForFps(AsyncSnapshot<List<Game?>> snapshot) {
     Widget buildGameImage(Widget routePage, String gameId) {
       return FutureBuilder(
-          future: storageHelper.getGameImageURL(gameId),
+          future: _storageHelper.getGameImageURL(gameId),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
               return Padding(
@@ -846,7 +870,7 @@ class BuildWidgets {
     //Oyun platformlarını build ediyor.
     Widget buildPlatforms(String gameId) {
       return FutureBuilder(
-          future: gameHelper.getPlatforms(gameId),
+          future: _gameHelper.getPlatforms(gameId),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               final data = snapshot.data;
@@ -931,7 +955,7 @@ class BuildWidgets {
     //soldaki gameImage i build ediyor
     Widget buildGameImage(String gameId) {
       return FutureBuilder(
-          future: storageHelper.getGameImageURL(gameId),
+          future: _storageHelper.getGameImageURL(gameId),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
               return Padding(
@@ -981,7 +1005,7 @@ class BuildWidgets {
     //BackgroundImage i build ediyor
     Widget buildBackgroundImage(String gameId, String screenshotId) {
       return FutureBuilder(
-          future: storageHelper.getGameScreenshotImageURL(gameId, screenshotId),
+          future: _storageHelper.getGameBacgroundImageURL(gameId, screenshotId),
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return SizedBox(
@@ -1089,8 +1113,8 @@ class BuildWidgets {
                   elevation: 12.0,
                   shape: CircleBorder(),
                   child: CircleAvatar(
-                    maxRadius: 42.0,
-                    minRadius: 42.0,
+                    maxRadius: 48.0,
+                    minRadius: 48.0,
                     backgroundImage: AssetImage('assets/images/user_avatars/male_avatar.png'),
                     backgroundColor: Colors.white,
                   ),
@@ -1110,9 +1134,14 @@ class BuildWidgets {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  user.userEmail,
-                  style: TextStyle(fontSize: 14.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${user.userCity} | ${user.userCountry}',
+                      style: TextStyle(fontSize: 18.0),
+                    )
+                  ],
                 ),
               ),
               Divider(),
@@ -1200,7 +1229,7 @@ class BuildWidgets {
 
     Widget buildCategoryImage(String categoryId) {
       return FutureBuilder(
-          future: storageHelper.getCategoryImageURL(categoryId),
+          future: _storageHelper.getCategoryImageURL(categoryId),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
               return SizedBox(
@@ -1278,6 +1307,78 @@ class BuildWidgets {
             ),
           ),
         ),
+      );
+    }
+  }
+
+  //Oyun yapımcısı ekranını build eder.
+  Widget buildGameMakerPage(AsyncSnapshot<Game?> snapshot) {
+    Widget makerPage(Game game, Widget makerImage) => Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 24.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Text(
+                            game.gameMakerName,
+                            style: TextStyle(fontSize: 24.0),
+                          )),
+                    ),
+                    makerImage,
+                  ],
+                ),
+              ),
+              Text(
+                'Hakkında',
+                style: TextStyle(fontSize: 18.0),
+              ),
+              Padding(padding: const EdgeInsets.symmetric(vertical: 24.0), child: Text(game.gameMakerDesc)),
+            ],
+          ),
+        );
+
+    //Game Maker sayfasında ki logoyu build ediyor.
+    Widget buildMakerImage(String gameId) {
+      return FutureBuilder(
+        future: _storageHelper.getGameMakerImageURL(gameId),
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.connectionState == ConnectionState.done) {
+            return Expanded(
+              flex: 2,
+              child: Image.network(snapshot.data!.toString(), fit: BoxFit.fill),
+            );
+          } else {
+            return Flexible(
+              flex: 2,
+              child: Container(
+                width: 50,
+                height: 50,
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                  strokeWidth: 2,
+                ),
+              ),
+            );
+          }
+        },
+      );
+    }
+
+    if (snapshot.hasData) {
+      final game = snapshot.data;
+      return makerPage(game!, buildMakerImage(game.gameId));
+    } else {
+      return CircularProgressIndicator(
+        strokeWidth: 3,
+        color: Colors.black,
       );
     }
   }
