@@ -37,13 +37,13 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
             child: MySingleChildScrollView(
               Axis.vertical,
               Column(
                 children: [
                   Material(
-                    elevation: 12.0,
+                    elevation: 6.0,
                     shape: CircleBorder(),
                     child: CircleAvatar(
                       maxRadius: 48.0,
@@ -53,61 +53,68 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   SizedBox(height: 24.0),
-                  TextFormField(
-                    controller: _emailController,
-                    cursorColor: Colors.black,
-                    keyboardType: TextInputType.emailAddress,
-                    //initialValue: widget.email,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(color: Colors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(color: Colors.black)),
-                      hintText: 'Email',
-                      hintStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
+                  Material(
+                    elevation: 4.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: TextFormField(
+                      controller: _emailController,
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(color: Colors.black)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Email',
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        prefixIcon: Icon(Icons.email_rounded, color: Colors.black),
                       ),
-                      prefixIcon: Icon(Icons.email_rounded, color: Colors.black),
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                     ),
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                   ),
                   SizedBox(height: 24.0),
-                  TextFormField(
-                    controller: _passwordController,
-                    obscureText: _passwordVisible!,
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(color: Colors.black)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(color: Colors.black)),
-                      hintText: 'Şifre',
-                      hintStyle: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
+                  Material(
+                    elevation: 4.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      obscureText: _passwordVisible!,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(color: Colors.black)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Şifre',
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        prefixIcon: Icon(Icons.lock_rounded, color: Colors.black),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                              _passwordVisible! ? Icons.visibility_rounded : Icons.visibility_off_rounded),
+                          color: Colors.black,
+                          onPressed: () {
+                            setState(() {
+                              _passwordVisible = !_passwordVisible!;
+                            });
+                          },
+                        ),
                       ),
-                      prefixIcon: Icon(Icons.lock_rounded, color: Colors.black),
-                      suffixIcon: IconButton(
-                        icon:
-                            Icon(_passwordVisible! ? Icons.visibility_rounded : Icons.visibility_off_rounded),
-                        color: Colors.black,
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible!;
-                          });
-                        },
-                      ),
+                      style: TextStyle(fontWeight: FontWeight.w400),
                     ),
-                    style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -199,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Material(
                         elevation: 6.0,
                         borderRadius: BorderRadius.circular(8.0),
-                        color: Colors.cyan.shade100,
+                        color: Color(0xfff14b2c),
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 72.0, vertical: 16.0),
                           child: Text(

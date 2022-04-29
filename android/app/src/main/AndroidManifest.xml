@@ -25,7 +25,7 @@
     </queries>
 
    <application
-        android:label="Kgamepedia"
+        android:label="Kgames"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

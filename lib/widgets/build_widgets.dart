@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:kgamepedia/models/category.dart';
 import 'package:kgamepedia/models/game.dart';
 import 'package:kgamepedia/models/user.dart';
+import 'package:kgamepedia/models/weather.dart';
 import 'package:kgamepedia/pages/game_library_page.dart';
 import 'package:kgamepedia/pages/game_page.dart';
 import 'package:kgamepedia/pages/likes_page.dart';
@@ -10,12 +11,14 @@ import 'package:kgamepedia/pages/settings_page.dart';
 import 'package:kgamepedia/pages/user_information_page.dart';
 import 'package:kgamepedia/services/firebase_firestore_helper.dart';
 import 'package:kgamepedia/services/firebase_storage_helper.dart';
+import 'package:kgamepedia/services/weather_helper.dart';
 import 'package:kgamepedia/widgets/my_behavior.dart';
 import 'package:line_icons/line_icons.dart';
 
 class BuildWidgets {
   final FirebaseStorageHelper _storageHelper = FirebaseStorageHelper();
   final FirebaseGameHelper _gameHelper = FirebaseGameHelper();
+  final WeatherHelper _weatherHelper = WeatherHelper();
 
   //Sol kısımda Oyun Resmi, sağ kısımda oyun bilgilerini gösteren widget.
   Widget buildGameWidgetA(BuildContext context, AsyncSnapshot<List<Game?>> snapshot) {
@@ -245,11 +248,11 @@ class BuildWidgets {
             child: RatingBarIndicator(
               rating: double.tryParse(ratingAVG.toString())!,
               itemBuilder: (context, index) => Icon(
-                Icons.star,
+                LineIcons.starAlt,
                 color: Colors.red,
               ),
               itemCount: 5,
-              itemSize: 25.0,
+              itemSize: 20.0,
               direction: Axis.horizontal,
               unratedColor: Colors.white30,
             ),
@@ -552,7 +555,7 @@ class BuildWidgets {
                   child: RatingBarIndicator(
                     rating: double.tryParse(ratingAVG.toString())!,
                     itemBuilder: (context, index) => Icon(
-                      Icons.star,
+                      LineIcons.starAlt,
                       color: Colors.red,
                     ),
                     itemCount: 5,
@@ -937,7 +940,7 @@ class BuildWidgets {
             child: RatingBarIndicator(
               rating: double.tryParse(ratingAVG.toString())!,
               itemBuilder: (context, index) => Icon(
-                Icons.star,
+                LineIcons.starAlt,
                 color: Colors.red,
               ),
               itemCount: 5,
@@ -1103,14 +1106,14 @@ class BuildWidgets {
         );
 
     //profil sayfasının build widgeti.
-    Widget buildUserPage(KgameUser user) => SingleChildScrollView(
+    Widget buildUserPage(KgameUser user, Widget weather) => SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Material(
-                  elevation: 12.0,
+                  elevation: 6.0,
                   shape: CircleBorder(),
                   child: CircleAvatar(
                     maxRadius: 48.0,
@@ -1154,16 +1157,109 @@ class BuildWidgets {
                 mainAxisSpacing: 20,
                 crossAxisCount: 2,
                 children: <Widget>[
-                  gridViewItem(Icons.perm_identity_rounded, UserInformationPage(), Colors.cyan.shade200),
+                  gridViewItem(
+                      Icons.perm_identity_rounded, UserInformationPage(currentUser: user), Color(0xfff14b2c)),
                   gridViewItem(Icons.favorite_border_rounded, LikesPage(currentUserID: user.id.toString()),
-                      Colors.cyan.shade300),
-                  gridViewItem(Icons.library_books_rounded, GameLibraryPage(), Colors.cyan.shade400),
-                  gridViewItem(Icons.settings_rounded, SettingsPage(), Colors.cyan.shade500),
+                      Color(0xfff14b2c)),
+                  gridViewItem(Icons.library_books_rounded, GameLibraryPage(), Color(0xfff14b2c)),
+                  gridViewItem(Icons.settings_rounded, SettingsPage(), Color(0xfff14b2c)),
                 ],
-              )
+              ),
+              weather,
             ],
           ),
         );
+
+    //Hava durumu apisinden gelen veri ile havadurumunu gösteriyor.
+    Widget buildweather(KgameUser user) => FutureBuilder<Weather?>(
+        future: _weatherHelper.readDataForCity(user.userCity),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data!;
+
+            IconData? weatherIcon;
+            if (data.currentDescId > 801) {
+              weatherIcon = Icons.cloud;
+            } else if (data.currentDescId == 801) {
+              weatherIcon = LineIcons.cloudWithSun;
+            } else if (data.currentDescId == 800) {
+              weatherIcon = LineIcons.sun;
+            } else if (data.currentDescId > 700) {
+              weatherIcon = LineIcons.wind;
+            } else if (data.currentDescId >= 600) {
+              weatherIcon = LineIcons.snowflake;
+            } else if (data.currentDescId >= 505) {
+              weatherIcon = LineIcons.cloudWithRain;
+            } else if (data.currentDescId >= 500) {
+              weatherIcon = LineIcons.cloudWithSunAndRain;
+            } else if (data.currentDescId >= 300) {
+              weatherIcon = LineIcons.cloudWithRain;
+            } else if (data.currentDescId >= 200) {
+              weatherIcon = LineIcons.lightningBolt;
+            }
+
+            return Padding(
+              padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+              child: Material(
+                elevation: 8.0,
+                borderRadius: BorderRadius.circular(8.0),
+                child: Container(
+                  width: double.infinity,
+                  decoration:
+                      BoxDecoration(color: Color(0xfff14b2c), borderRadius: BorderRadius.circular(8.0)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                              user.userCity.toUpperCase(),
+                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              user.userCountry.toUpperCase(),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  weatherIcon,
+                                  size: 80,
+                                  color: Colors.white,
+                                ),
+                                VerticalDivider(),
+                                Text(
+                                  '${data.currentTemp.toStringAsFixed(0)}°C',
+                                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            Text(
+                              data.currentDescription.toUpperCase(),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return CircularProgressIndicator(
+              color: Colors.black,
+              strokeWidth: 3.0,
+            );
+          }
+        });
 
     if (snapshot.hasData) {
       final user = snapshot.data;
@@ -1171,7 +1267,7 @@ class BuildWidgets {
           ? Center(
               child: Text('No user'),
             )
-          : buildUserPage(user);
+          : buildUserPage(user, buildweather(user));
     } else {
       return Text('Yükleniyor..');
     }
@@ -1358,7 +1454,7 @@ class BuildWidgets {
           } else {
             return Flexible(
               flex: 2,
-              child: Container(
+              child: SizedBox(
                 width: 50,
                 height: 50,
                 child: CircularProgressIndicator(

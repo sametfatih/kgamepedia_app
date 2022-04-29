@@ -22,13 +22,22 @@ class _LoginSignUpState extends State<LoginSignUp> {
         body: DefaultTabController(
           length: 2,
           child: Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(top: 18.0, bottom: 18.0, left: 36.0, right: 36.0),
-                child: Text(
-                  'KGAMEPEDIA',
-                  style: TextStyle(color: Color(0xFF212121), fontSize: 32, fontWeight: FontWeight.bold),
-                ),
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                    padding: EdgeInsets.only(top: 9.0, bottom: 9.0, left: 36.0, right: 36.0),
+                    child: ClipRect(
+                      child: Image.asset(
+                        'assets/images/logos/kgames.png',
+                      ),
+                    )
+
+                    // Text(
+                    //   'KGAMES',
+                    //   style: TextStyle(color: Color(0xFF212121), fontSize: 32, fontWeight: FontWeight.bold),
+                    // ),
+                    ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 48.0, vertical: 0.0),
@@ -41,9 +50,9 @@ class _LoginSignUpState extends State<LoginSignUp> {
                     child: TabBar(
                         overlayColor: MaterialStateProperty.all(Colors.transparent),
                         labelColor: Colors.black,
-                        unselectedLabelColor: Colors.cyan.shade100,
+                        unselectedLabelColor: Color(0xfff14b2c),
                         indicator: RectangularIndicator(
-                          color: Colors.cyan.shade100,
+                          color: Color(0xfff14b2c),
                           bottomLeftRadius: 80,
                           bottomRightRadius: 80,
                           topLeftRadius: 80,
@@ -67,6 +76,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 ),
               ),
               Expanded(
+                flex: 6,
                 child: ScrollConfiguration(
                   behavior: MyBehavior(),
                   child: TabBarView(children: [

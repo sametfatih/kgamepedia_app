@@ -39,6 +39,8 @@ dependencies:
   firebase_auth: ^3.3.15
   numberpicker: ^2.1.1
   shared_preferences: ^2.0.13
+  http: ^0.13.4
+  splash_screen_view: ^3.0.0
 
 
 

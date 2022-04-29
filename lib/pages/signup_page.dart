@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kgamepedia/models/user.dart';
 import 'package:kgamepedia/utils/constants/country_and_cities.dart';
@@ -41,7 +42,7 @@ class _SignUpPageState extends State<SignUpPage> {
           backgroundColor: Colors.white,
           body: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 24.0),
+              padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
               child: MySingleChildScrollView(
                 Axis.vertical,
                 Column(
@@ -49,7 +50,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Material(
-                        elevation: 12.0,
+                        elevation: 6.0,
                         shape: CircleBorder(),
                         child: CircleAvatar(
                           maxRadius: 48.0,
@@ -59,53 +60,61 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 24.0),
+                    SizedBox(height: 12.0),
                     Row(
                       children: [
                         Expanded(
                           flex: 3,
                           child: Column(
                             children: [
-                              TextFormField(
-                                controller: _nameController,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(color: Colors.black)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(color: Colors.black)),
-                                  hintText: 'Ad',
-                                  hintStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500,
+                              Material(
+                                elevation: 4.0,
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: TextFormField(
+                                  controller: _nameController,
+                                  cursorColor: Colors.black,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(color: Colors.black)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(color: Colors.black)),
+                                    hintText: 'Ad',
+                                    hintStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
+                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                                 ),
-                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                               ),
                               Divider(color: Colors.transparent),
-                              TextFormField(
-                                controller: _surnameController,
-                                cursorColor: Colors.black,
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(color: Colors.black)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      borderSide: BorderSide(color: Colors.black)),
-                                  hintText: 'Soyad',
-                                  hintStyle: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w500,
+                              Material(
+                                elevation: 4.0,
+                                borderRadius: BorderRadius.circular(8.0),
+                                child: TextFormField(
+                                  controller: _surnameController,
+                                  cursorColor: Colors.black,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(color: Colors.black)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(8.0),
+                                        borderSide: BorderSide(color: Colors.black)),
+                                    hintText: 'Soyad',
+                                    hintStyle: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
+                                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                                 ),
-                                style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                               ),
                             ],
                           ),
@@ -132,147 +141,180 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                     Divider(color: Colors.transparent),
-                    TextFormField(
-                      controller: _emailController,
-                      cursorColor: Colors.black,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: Colors.black)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintText: 'Email',
-                        hintStyle: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Material(
+                          elevation: 4.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: TextFormField(
+                            controller: _emailController,
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(color: Colors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(color: Colors.black)),
+                              hintText: 'Email',
+                              hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              prefixIcon: Icon(Icons.email_rounded, color: Colors.black),
+                            ),
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                          ),
                         ),
-                        prefixIcon: Icon(Icons.email_rounded, color: Colors.black),
-                        helperText: "Email 'örnek@kgamepedia.com' formatında olmalıdır!",
-                        helperStyle: TextStyle(color: Colors.black54, fontSize: 10),
-                      ),
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, left: 10.0),
+                          child: Text("Email 'örnek@kgamepedia.com' formatında olmalıdır!",
+                              style: TextStyle(color: Colors.black54, fontSize: 10)),
+                        ),
+                      ],
                     ),
                     Divider(color: Colors.transparent),
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: _passwordVisible!,
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: Colors.black)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: Colors.black)),
-                        hintText: 'Şifre',
-                        hintStyle: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Material(
+                          elevation: 4.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: TextFormField(
+                            controller: _passwordController,
+                            obscureText: _passwordVisible!,
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              fillColor: Colors.white,
+                              filled: true,
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(color: Colors.black)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderSide: BorderSide(color: Colors.black)),
+                              hintText: 'Şifre',
+                              hintStyle: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              prefixIcon: Icon(Icons.lock_rounded, color: Colors.black),
+                              suffixIcon: IconButton(
+                                icon: Icon(_passwordVisible!
+                                    ? Icons.visibility_rounded
+                                    : Icons.visibility_off_rounded),
+                                color: Colors.black,
+                                onPressed: () {
+                                  setState(() {
+                                    _passwordVisible = !_passwordVisible!;
+                                  });
+                                },
+                              ),
+                            ),
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                          ),
                         ),
-                        prefixIcon: Icon(Icons.lock_rounded, color: Colors.black),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                              _passwordVisible! ? Icons.visibility_rounded : Icons.visibility_off_rounded),
-                          color: Colors.black,
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible!;
-                            });
-                          },
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, left: 10.0),
+                          child: Text('Şifre minimum 6 karakter içermelidir!',
+                              style: TextStyle(color: Colors.black54, fontSize: 10)),
                         ),
-                        helperText: 'Şifre minimum 6 karakter içermelidir!',
-                        helperStyle: TextStyle(color: Colors.black54, fontSize: 10),
-                      ),
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
+                      ],
                     ),
                     Divider(color: Colors.transparent),
                     Row(
                       children: [
                         Expanded(
-                          child: DropdownButtonFormField(
-                            dropdownColor: Colors.white,
-                            menuMaxHeight: 250,
-                            isExpanded: true,
-                            value: _dropdownCity,
-                            icon: const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.black,
-                            ),
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Colors.black)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Colors.black)),
-                            ),
-                            items: Constants().cities.map(
-                              (String countrys) {
-                                return DropdownMenuItem(
-                                  value: countrys,
-                                  child: Text(
-                                    countrys,
-                                    style: TextStyle(fontWeight: FontWeight.w500),
-                                  ),
+                          child: Material(
+                            elevation: 4.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: DropdownButtonFormField(
+                              dropdownColor: Colors.white,
+                              menuMaxHeight: 250,
+                              isExpanded: true,
+                              value: _dropdownCity,
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(color: Colors.black)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(color: Colors.black)),
+                              ),
+                              items: Constants().cities.map(
+                                (String countrys) {
+                                  return DropdownMenuItem(
+                                    value: countrys,
+                                    child: Text(
+                                      countrys,
+                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                              onChanged: (String? value) {
+                                setState(
+                                  () {
+                                    _dropdownCity = value!;
+                                  },
                                 );
                               },
-                            ).toList(),
-                            onChanged: (String? value) {
-                              setState(
-                                () {
-                                  _dropdownCity = value!;
-                                },
-                              );
-                            },
+                            ),
                           ),
                         ),
                         VerticalDivider(color: Colors.transparent),
                         Expanded(
-                          child: DropdownButtonFormField(
-                            dropdownColor: Colors.white,
-                            menuMaxHeight: 250,
-                            isExpanded: true,
-                            value: _dropdownCountry,
-                            icon: const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.black,
-                            ),
-                            decoration: InputDecoration(
-                              fillColor: Colors.white,
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Colors.black)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Colors.black)),
-                            ),
-                            items: Constants().countrys.map(
-                              (String countrys) {
-                                return DropdownMenuItem(
-                                  value: countrys,
-                                  child: Text(
-                                    countrys,
-                                    style: TextStyle(fontWeight: FontWeight.w500),
-                                  ),
+                          child: Material(
+                            elevation: 4.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: DropdownButtonFormField(
+                              dropdownColor: Colors.white,
+                              menuMaxHeight: 250,
+                              isExpanded: true,
+                              value: _dropdownCountry,
+                              icon: const Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.black,
+                              ),
+                              decoration: InputDecoration(
+                                fillColor: Colors.white,
+                                filled: true,
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(color: Colors.black)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    borderSide: BorderSide(color: Colors.black)),
+                              ),
+                              items: Constants().countrys.map(
+                                (String countrys) {
+                                  return DropdownMenuItem(
+                                    value: countrys,
+                                    child: Text(
+                                      countrys,
+                                      style: TextStyle(fontWeight: FontWeight.w500),
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                              onChanged: (String? value) {
+                                setState(
+                                  () {
+                                    _dropdownCountry = value!;
+                                  },
                                 );
                               },
-                            ).toList(),
-                            onChanged: (String? value) {
-                              setState(
-                                () {
-                                  _dropdownCountry = value!;
-                                },
-                              );
-                            },
+                            ),
                           ),
                         ),
                       ],
@@ -342,7 +384,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Material(
                           elevation: 6.0,
                           borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.cyan.shade100,
+                          color: Color(0xfff14b2c),
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 72.0, vertical: 16.0),
                             child: Text(

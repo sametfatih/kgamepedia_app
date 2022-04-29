@@ -10,7 +10,7 @@ AppBar myAppBar(BuildContext context, String title) => AppBar(
       backgroundColor: Colors.white,
       centerTitle: true,
       leadingWidth: 80,
-      leading: title == 'KGAMEPEDIA'
+      leading: title == 'KGAMES'
           ? GestureDetector(
               onDoubleTap: () {
                 Navigator.pushNamed(context, CreatorPage.routeName);
@@ -20,20 +20,20 @@ AppBar myAppBar(BuildContext context, String title) => AppBar(
                 color: Colors.black,
                 size: 48,
               )
-              // Container(
-              //     margin: EdgeInsets.only(left: 16, top: 5, bottom: 5),
-              //     child: Image.asset(
-              //       'assets/images/logos/kgame_logo.png',
-              //       fit: BoxFit.fill,
-              //     )),
+              // child: Image.asset(
+              //   'assets/images/logos/kgames2.png',
+              //   fit: BoxFit.fitHeight,
+              // ),
               )
           : null,
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 24.0, color: Colors.black, fontWeight: FontWeight.w500),
-      ),
+      title: title == 'KGAMES'
+          ? Image.asset('assets/images/logos/kgames2.png', height: 60)
+          : Text(
+              title,
+              style: TextStyle(fontSize: 24.0, color: Colors.black, fontWeight: FontWeight.w500),
+            ),
       actions: [
-        title == 'KGAMEPEDIA'
+        title == 'KGAMES'
             ? Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: IconButton(

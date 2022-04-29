@@ -8,6 +8,7 @@ import 'package:kgamepedia/pages/categorie_pages/survival_page.dart';
 import 'package:kgamepedia/pages/creator_page.dart';
 import 'package:kgamepedia/pages/login_page.dart';
 import 'package:kgamepedia/pages/login_signup_page.dart';
+import 'package:kgamepedia/pages/splashscreen_page.dart';
 import 'package:kgamepedia/services/user_preferences.dart';
 
 import 'pages/signup_page.dart';
@@ -30,8 +31,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: Colors.white,
       ),
-      initialRoute: LoginSignUp.routeName,
+      initialRoute: SplashPage.routeName,
       routes: {
+        SplashPage.routeName: (context) => SplashPage(),
         LoginSignUp.routeName: (context) => LoginSignUp(),
         LoginPage.routeName: (context) => LoginPage(),
         SignUpPage.routeName: (context) => SignUpPage(),

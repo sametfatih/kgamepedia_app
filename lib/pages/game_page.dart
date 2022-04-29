@@ -27,7 +27,7 @@ class _GamePageState extends State<GamePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: myGameAppBar(context, 'KGAMEPEDIA'),
+        appBar: myGameAppBar(context, 'KGAMES'),
         body: FutureBuilder<Game?>(
           future: _gameHelper.readGame(widget.gameID),
           builder: (context, snapshot) => buildGamePage(
@@ -44,64 +44,67 @@ class _GamePageState extends State<GamePage> {
   Widget buildGamePage(BuildContext context, AsyncSnapshot<Game?> snapshot, String gameId) {
     Widget gamePage(Game game, Widget gameImage, Widget platforms, Widget ratingbar, Widget screenshots) =>
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 5.0),
+          padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 5.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  //Oyun ekranında sol üstteki image'i getirir.
-                  gameImage,
-                  SizedBox(width: 12.0),
-                  Expanded(
-                    child: SizedBox(
-                      height: 152.0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //Oyun ekranındaki oyun adı
-                          Text(
-                            game.gameName,
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          SizedBox(height: 6.0),
-                          //Oyun ekranındaki oyun yapımcısı
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => GameMakerPage(
-                                    gameId: game.gameId,
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              game.gameMakerName,
-                              style:
-                                  TextStyle(color: Colors.red, fontSize: 16.0, fontWeight: FontWeight.w500),
+              Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Row(
+                  children: [
+                    //Oyun ekranında sol üstteki image'i getirir.
+                    gameImage,
+                    SizedBox(width: 8.0),
+                    Expanded(
+                      child: SizedBox(
+                        height: 152.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //Oyun ekranındaki oyun adı
+                            Text(
+                              game.gameName,
+                              style: TextStyle(fontSize: 20),
                             ),
-                          ),
+                            SizedBox(height: 6.0),
+                            //Oyun ekranındaki oyun yapımcısı
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => GameMakerPage(
+                                      gameId: game.gameId,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: Text(
+                                game.gameMakerName,
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 16.0, fontWeight: FontWeight.w500),
+                              ),
+                            ),
 
-                          SizedBox(height: 6.0),
-                          //Oyun ekranındaki platformlar
-                          Row(
-                            children: [
-                              Text('Platformlar: ', style: TextStyle(fontWeight: FontWeight.w500)),
-                              platforms,
-                            ],
-                          ),
-                          //oyun ekranındaki rating bar
-                          ratingbar,
-                        ],
+                            SizedBox(height: 6.0),
+                            //Oyun ekranındaki platformlar
+                            Row(
+                              children: [
+                                Text('Platformlar: ', style: TextStyle(fontWeight: FontWeight.w500)),
+                                platforms,
+                              ],
+                            ),
+                            //oyun ekranındaki rating bar
+                            ratingbar,
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
 
               //Oyun ekranındaki en altta bulunan satın al butonunu oluşturuluyor.
@@ -198,18 +201,21 @@ class _GamePageState extends State<GamePage> {
               child: RatingBarIndicator(
                 rating: ratingAVG,
                 itemBuilder: (context, index) => Icon(
-                  Icons.star,
+                  LineIcons.starAlt,
                   color: Colors.red,
                 ),
                 itemCount: 5,
-                itemSize: 25.0,
+                itemSize: 20.0,
                 direction: Axis.horizontal,
               ),
             ),
-            Text(ratingAVG.toStringAsFixed(1), style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
-              child: TextButton(
+              padding: const EdgeInsets.only(right: 6.0),
+              child: Text(ratingAVG.toStringAsFixed(1),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+            ),
+            Expanded(
+              child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.red),
                 ),
@@ -228,7 +234,7 @@ class _GamePageState extends State<GamePage> {
                         itemSize: 40,
                         itemPadding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 2.0),
                         itemBuilder: (context, _) => Icon(
-                          Icons.star,
+                          LineIcons.starAlt,
                           color: Colors.red,
                         ),
                         onRatingUpdate: (rating) {
@@ -265,7 +271,7 @@ class _GamePageState extends State<GamePage> {
                 },
                 child: Text(
                   'Puan ver!',
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 12.0),
                 ),
               ),
             ),

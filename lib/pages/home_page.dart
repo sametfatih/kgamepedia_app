@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: myAppBar(context, 'KGAMEPEDIA'),
+        appBar: myAppBar(context, 'KGAMES'),
         body: MySingleChildScrollView(
           Axis.vertical,
           Column(
