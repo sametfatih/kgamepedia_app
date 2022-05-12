@@ -14,16 +14,16 @@ class LikesPage extends StatefulWidget {
 }
 
 class _LikesPageState extends State<LikesPage> {
-  final FirebaseUserHelper _userHelper = FirebaseUserHelper();
   final BuildWidgets __buildWidgets = BuildWidgets();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: myAppBar(context, 'Beğenilenler'),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: myAppBarA(context, 'Beğenilenler'),
       body: FutureBuilder<KgameUser?>(
-        future: _userHelper.readUser(widget.currentUserID!),
-        builder: (context, snapshot) => __buildWidgets.buildGameWidgetAForLikes(context, snapshot),
+        future: FirebaseUserHelper.readUser(widget.currentUserID!),
+        builder: (context, snapshot) =>
+            __buildWidgets.buildGameWidgetAForLikes(context, snapshot, widget.currentUserID!),
       ),
     );
   }

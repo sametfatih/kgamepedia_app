@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:kgamepedia/pages/password_reset_page.dart';
 import 'package:kgamepedia/services/user_preferences.dart';
 import 'package:kgamepedia/widgets/my_behavior.dart';
 
@@ -34,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
@@ -49,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                       maxRadius: 48.0,
                       minRadius: 48.0,
                       backgroundImage: AssetImage('assets/images/user_avatars/male_avatar.png'),
-                      backgroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                     ),
                   ),
                   SizedBox(height: 24.0),
@@ -58,23 +59,23 @@ class _LoginPageState extends State<LoginPage> {
                     borderRadius: BorderRadius.circular(8.0),
                     child: TextFormField(
                       controller: _emailController,
-                      cursorColor: Colors.black,
+                      cursorColor: Colors.black54,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: Colors.black)),
+                            borderSide: BorderSide(color: Colors.black54)),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: Colors.black)),
+                            borderSide: BorderSide(color: Colors.black54)),
                         hintText: 'Email',
                         hintStyle: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
                         ),
-                        prefixIcon: Icon(Icons.email_rounded, color: Colors.black),
+                        prefixIcon: Icon(Icons.email_rounded, color: Theme.of(context).iconTheme.color),
                       ),
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                     ),
@@ -86,26 +87,26 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextFormField(
                       controller: _passwordController,
                       obscureText: _passwordVisible!,
-                      cursorColor: Colors.black,
+                      cursorColor: Colors.black54,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: Colors.black)),
+                            borderSide: BorderSide(color: Colors.black54)),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8.0),
-                            borderSide: BorderSide(color: Colors.black)),
+                            borderSide: BorderSide(color: Colors.black54)),
                         hintText: 'Şifre',
                         hintStyle: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w500,
                         ),
-                        prefixIcon: Icon(Icons.lock_rounded, color: Colors.black),
+                        prefixIcon: Icon(Icons.lock_rounded, color: Theme.of(context).iconTheme.color),
                         suffixIcon: IconButton(
                           icon: Icon(
                               _passwordVisible! ? Icons.visibility_rounded : Icons.visibility_off_rounded),
-                          color: Colors.black,
+                          color: Theme.of(context).iconTheme.color,
                           onPressed: () {
                             setState(() {
                               _passwordVisible = !_passwordVisible!;
@@ -122,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                       Row(
                         children: [
                           Checkbox(
-                            activeColor: Colors.black,
+                            activeColor: Theme.of(context).iconTheme.color,
                             value: _remember,
                             onChanged: (bool? value) {
                               setState(() {
@@ -142,8 +143,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Text('|'),
                       GestureDetector(
-                        onTap: () async {
-                          await _auth.sendPasswordResetEmail(email: _emailController.text.trim());
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordsReset()));
                         },
                         child: Text(
                           'Şifrenizi mi unuttunuz?',
@@ -157,8 +158,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 18.0),
-                    child: GestureDetector(
-                      onTap: () async {
+                    child: MaterialButton(
+                      onPressed: () async {
                         SnackBar snackBar(String text) => SnackBar(
                               content: Center(
                                 heightFactor: 1,
@@ -172,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                                         style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
                                       ),
                               ),
-                              backgroundColor: Colors.white,
+                              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                               elevation: 0,
                             );
 
@@ -192,7 +193,6 @@ class _LoginPageState extends State<LoginPage> {
 
                         if (_auth.currentUser != null) {
                           ScaffoldMessenger.of(context).showSnackBar(snackBar('Başarılı Giriş'));
-
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -206,7 +206,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: Material(
                         elevation: 6.0,
                         borderRadius: BorderRadius.circular(8.0),
-                        color: Color(0xfff14b2c),
+                        color: Theme.of(context).primaryColor,
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 72.0, vertical: 16.0),
                           child: Text(

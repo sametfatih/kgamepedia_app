@@ -7,7 +7,8 @@ import 'package:line_icons/line_icons.dart';
 import '../services/firebase_firestore_helper.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  final String? currentUserID;
+  const SearchPage({Key? key, required this.currentUserID}) : super(key: key);
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -29,11 +30,12 @@ class _SearchPageState extends State<SearchPage> {
      category[3] , a-z ve z-a sıralama checkbox değeri olarak kullanıldı.
   */
   List category = [true, false, false, true]; // popupmenubutton üzerindeki checkbox yönetimi için kullanıldı.
+
   @override
   Widget build(BuildContext context) {
     FocusScope.of(context).autofocus(focusSearchForm);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: MySingleChildScrollView(
         Axis.vertical,
         Column(
@@ -42,17 +44,19 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.only(top: 18.0, bottom: 8.0, left: 12.0, right: 12.0),
               child: TextFormField(
                 focusNode: focusSearchForm,
-                cursorColor: Colors.black,
+                cursorColor: Colors.black54,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: Colors.black)),
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(color: Colors.black54)),
                   focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0), borderSide: BorderSide(color: Colors.black)),
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(color: Colors.black54)),
                   hintText: 'Ara',
                   hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-                  prefixIcon: Icon(Icons.search_outlined, color: Colors.black),
+                  prefixIcon: Icon(Icons.search_outlined, color: Theme.of(context).iconTheme.color),
                   suffixIcon: searchPopupMenu(),
                 ),
                 onChanged: (value) {
@@ -68,9 +72,10 @@ class _SearchPageState extends State<SearchPage> {
                 },
               ),
             ),
-            StreamBuilder<List<Game?>>(
+            StreamBuilder<List<Game>>(
                 stream: _gameHelper.readGamesForSearch(userSelect, tempSearch, category),
-                builder: (context, snapshot) => __buildWidgets.buildGameWidgetA(context, snapshot)),
+                builder: (context, snapshot) =>
+                    __buildWidgets.buildGameWidgetA(context, snapshot, currentUserID: widget.currentUserID!)),
           ],
         ),
       ),
@@ -79,7 +84,7 @@ class _SearchPageState extends State<SearchPage> {
 
   //farklı search çeşitleri için açılan popup menu.
   PopupMenuButton searchPopupMenu() => PopupMenuButton<_MenuValues>(
-        icon: Icon(LineIcons.horizontalSliders, color: Colors.black),
+        icon: Icon(LineIcons.horizontalSliders, color: Theme.of(context).iconTheme.color),
         itemBuilder: (BuildContext context) => [
           //Açılır popup menudeki itemler.
           PopupMenuItem(

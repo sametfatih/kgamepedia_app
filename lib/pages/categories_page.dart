@@ -15,18 +15,20 @@ class CategoriesPage extends StatefulWidget {
 
 class _ProfilePAgeState extends State<CategoriesPage> {
   final FirebaseCategoryHelper _categoryHelper = FirebaseCategoryHelper();
-  final BuildWidgets __buildWidgets = BuildWidgets();
+  final BuildWidgets _buildWidgets = BuildWidgets();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: myAppBar(context, 'Kategoriler'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: myAppBarA(context, 'Kategoriler'),
         body: MySingleChildScrollView(
           Axis.vertical,
           StreamBuilder<List<Categories?>>(
             stream: _categoryHelper.readCategories(),
-            builder: (context, snapshot) => __buildWidgets.buildCategories(context, snapshot),
+            builder: (context, snapshot) {
+              return _buildWidgets.buildCategories(context, snapshot);
+            },
           ),
         ),
       ),

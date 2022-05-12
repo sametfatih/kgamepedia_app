@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:kgamepedia/models/category.dart';
+import 'package:kgamepedia/models/comment.dart';
 import 'package:kgamepedia/models/game.dart';
-import 'package:kgamepedia/models/user.dart';
 
-import 'url_launcher.dart';
+import '../models/user.dart';
 
 class FirebaseHelper {
   FirebaseFirestore database = FirebaseFirestore.instance;
@@ -45,6 +44,17 @@ class FirebaseGameHelper extends FirebaseHelper {
         .map((snapshot) => snapshot.docs.map((doc) => Game.fromJson(doc.data())).toList());
   }
 
+  //Oyun sayfasındaki yorumları getiriyor.
+  Stream<List<Comment>> readComments(String gameId, int limit) {
+    return FirebaseFirestore.instance
+        .collection('games')
+        .doc(gameId)
+        .collection('comments')
+        .limit(limit)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => Comment.fromJson(doc.data())).toList());
+  }
+
   Future<String> getGameName(String gameID) async {
     DocumentReference documentReference = database.collection('games').doc(gameID);
     DocumentSnapshot snapshot = await documentReference.get();
@@ -81,62 +91,23 @@ class FirebaseGameHelper extends FirebaseHelper {
     final platforms = List.from(snapshot.get('platforms'));
     return platforms;
   }
-
-  Widget textBuild({
-    required AsyncSnapshot snapshot,
-    Color color = Colors.black,
-    double fontSize = 14.0,
-    FontWeight fontWeight = FontWeight.normal,
-  }) {
-    if (snapshot.hasData) {
-      final data = snapshot.data;
-      return data == null
-          ? Text('Data not found.')
-          : Text(
-              data.toString(),
-              style: TextStyle(color: color, fontSize: fontSize, fontWeight: fontWeight),
-            );
-    } else {
-      return Text('Yükleniyor');
-    }
-  }
-
-  Widget buyButtonBuild({required AsyncSnapshot snapshot}) {
-    if (snapshot.hasData) {
-      final data = snapshot.data;
-      return data == null
-          ? Center(
-              child: Text('Data not found'),
-            )
-          : ElevatedButton(
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Color(0xFFFFDE15))),
-              onPressed: () {
-                launchURL(data);
-              },
-              child: Text(
-                'Satın Al',
-                style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black),
-              ),
-            );
-    } else {
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text('Yükleniyor...'),
-        ),
-      );
-    }
-  }
 }
 
 class FirebaseUserHelper extends FirebaseHelper {
-  Future<KgameUser?> readUser(String userId) async {
+  static Future<KgameUser?> readUser(String userId) async {
     final userDoc = FirebaseFirestore.instance.collection('users').doc(userId);
     final snapshot = await userDoc.get();
     if (snapshot.exists) {
       return KgameUser.fromJson(snapshot.data()!);
     }
     return null;
+  }
+
+  static Stream<List<KgameUser>> readUsers() {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) => KgameUser.fromJson(doc.data())).toList());
   }
 }
 
@@ -148,7 +119,7 @@ class FirebaseCategoryHelper extends FirebaseHelper {
         .map((snapshot) => snapshot.docs.map((doc) => Categories.fromJson(doc.data())).toList());
   }
 
-  Stream<List<Game?>> readGamesForCategory(String categoryName) {
+  Stream<List<Game>> readGamesForCategory(String categoryName) {
     return FirebaseFirestore.instance
         .collection('games')
         .where('gameCategory', isEqualTo: categoryName)

@@ -8,17 +8,20 @@ class KgameUser {
   final String userCountry;
   final String userCity;
   final List userLikes;
+  final List userLibrary;
 
-  KgameUser(
-      {this.id = '',
-      required this.userName,
-      required this.userSurname,
-      required this.userAge,
-      required this.userEmail,
-      required this.userPassword,
-      required this.userCountry,
-      required this.userCity,
-      required this.userLikes});
+  KgameUser({
+    this.id = '',
+    required this.userName,
+    required this.userSurname,
+    required this.userAge,
+    required this.userEmail,
+    required this.userPassword,
+    required this.userCountry,
+    required this.userCity,
+    required this.userLikes,
+    required this.userLibrary,
+  });
 
   Map<String, dynamic> toJson() => {
         'id': id,
@@ -30,6 +33,7 @@ class KgameUser {
         'userCountry': userCountry,
         'userCity': userCity,
         'userLikes': userLikes,
+        'userLibrary': userLibrary,
       };
   static KgameUser fromJson(Map<String, dynamic> json) => KgameUser(
         id: json['id'],
@@ -41,5 +45,6 @@ class KgameUser {
         userCountry: json['userCountry'],
         userCity: json['userCity'],
         userLikes: json['userLikes'],
+        userLibrary: json['userLibrary'],
       );
 }

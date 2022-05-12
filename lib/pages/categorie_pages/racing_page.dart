@@ -20,8 +20,8 @@ class _RacingCategoryState extends State<RacingCategory> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: myGameAppBar(context, RacingCategory.categorieName),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: myAppBarB(context, RacingCategory.categorieName),
         body: MySingleChildScrollView(
           Axis.vertical,
           StreamBuilder<List<Game?>>(

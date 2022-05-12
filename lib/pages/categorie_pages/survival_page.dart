@@ -21,11 +21,11 @@ class _SurvivalCategoryState extends State<SurvivalCategory> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: myGameAppBar(context, SurvivalCategory.categorieName),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: myAppBarB(context, SurvivalCategory.categorieName),
         body: MySingleChildScrollView(
           Axis.vertical,
-          StreamBuilder<List<Game?>>(
+          StreamBuilder<List<Game>>(
             stream: _categoryHelper.readGamesForCategory(SurvivalCategory.categorieName),
             builder: (context, snapshot) => _buildWidgets.buildGameWidgetA(context, snapshot),
           ),

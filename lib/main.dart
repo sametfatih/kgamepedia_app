@@ -10,6 +10,7 @@ import 'package:kgamepedia/pages/login_page.dart';
 import 'package:kgamepedia/pages/login_signup_page.dart';
 import 'package:kgamepedia/pages/splashscreen_page.dart';
 import 'package:kgamepedia/services/user_preferences.dart';
+import 'package:kgamepedia/utils/config/themes.dart';
 
 import 'pages/signup_page.dart';
 
@@ -18,19 +19,18 @@ void main() async {
   await Firebase.initializeApp();
   await UserPreferences.init();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(MyApp());
+  runApp(Kgames());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+class Kgames extends StatelessWidget {
+  Kgames({Key? key}) : super(key: key);
+  final String? theme = UserPreferences.getTheme() ?? 'red';
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        backgroundColor: Colors.white,
-      ),
+      theme: theme == 'red' ? redTheme : tealTheme,
       initialRoute: SplashPage.routeName,
       routes: {
         SplashPage.routeName: (context) => SplashPage(),

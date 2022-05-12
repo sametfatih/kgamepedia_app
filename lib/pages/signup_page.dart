@@ -39,7 +39,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
@@ -47,6 +47,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 Axis.vertical,
                 Column(
                   children: [
+                    //avatar
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Material(
@@ -56,13 +57,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           maxRadius: 48.0,
                           minRadius: 48.0,
                           backgroundImage: AssetImage('assets/images/user_avatars/male_avatar.png'),
-                          backgroundColor: Colors.white,
+                          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                         ),
                       ),
                     ),
                     SizedBox(height: 12.0),
                     Row(
                       children: [
+                        //ad soyad
                         Expanded(
                           flex: 3,
                           child: Column(
@@ -72,16 +74,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: TextFormField(
                                   controller: _nameController,
-                                  cursorColor: Colors.black,
+                                  cursorColor: Colors.black54,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white,
                                     filled: true,
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(color: Colors.black)),
+                                        borderSide: BorderSide(color: Colors.black54)),
                                     focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(color: Colors.black)),
+                                        borderSide: BorderSide(color: Colors.black54)),
                                     hintText: 'Ad',
                                     hintStyle: TextStyle(
                                       color: Colors.black,
@@ -97,16 +99,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: TextFormField(
                                   controller: _surnameController,
-                                  cursorColor: Colors.black,
+                                  cursorColor: Colors.black54,
                                   decoration: InputDecoration(
                                     fillColor: Colors.white,
                                     filled: true,
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(color: Colors.black)),
+                                        borderSide: BorderSide(color: Colors.black54)),
                                     focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(8.0),
-                                        borderSide: BorderSide(color: Colors.black)),
+                                        borderSide: BorderSide(color: Colors.black54)),
                                     hintText: 'Soyad',
                                     hintStyle: TextStyle(
                                       color: Colors.black,
@@ -120,6 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         VerticalDivider(color: Colors.transparent),
+                        //yaş
                         Expanded(
                           flex: 1,
                           child: NumberPicker(
@@ -141,6 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                     Divider(color: Colors.transparent),
+                    //email
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -156,16 +160,16 @@ class _SignUpPageState extends State<SignUpPage> {
                               filled: true,
                               enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Colors.black)),
+                                  borderSide: BorderSide(color: Colors.black54)),
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  borderSide: BorderSide(color: Colors.black)),
+                                  borderSide: BorderSide(color: Colors.black54)),
                               hintText: 'Email',
                               hintStyle: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
-                              prefixIcon: Icon(Icons.email_rounded, color: Colors.black),
+                              prefixIcon: Icon(Icons.email_rounded, color: Theme.of(context).iconTheme.color),
                             ),
                             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
                           ),
@@ -178,6 +182,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                     Divider(color: Colors.transparent),
+                    //Şifre
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -202,12 +207,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
-                              prefixIcon: Icon(Icons.lock_rounded, color: Colors.black),
+                              prefixIcon: Icon(Icons.lock_rounded, color: Theme.of(context).iconTheme.color),
                               suffixIcon: IconButton(
                                 icon: Icon(_passwordVisible!
                                     ? Icons.visibility_rounded
                                     : Icons.visibility_off_rounded),
-                                color: Colors.black,
+                                color: Theme.of(context).iconTheme.color,
                                 onPressed: () {
                                   setState(() {
                                     _passwordVisible = !_passwordVisible!;
@@ -226,8 +231,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       ],
                     ),
                     Divider(color: Colors.transparent),
+                    //şehir, ülke
                     Row(
                       children: [
+                        //şehir
                         Expanded(
                           child: Material(
                             elevation: 4.0,
@@ -273,6 +280,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                         ),
                         VerticalDivider(color: Colors.transparent),
+                        //ülke
                         Expanded(
                           child: Material(
                             elevation: 4.0,
@@ -319,10 +327,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                       ],
                     ),
+                    //kayıt ol
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 18.0),
-                      child: GestureDetector(
-                        onTap: () async {
+                      child: MaterialButton(
+                        onPressed: () async {
                           SnackBar snackBar(String text, String message) => SnackBar(
                                 content: Center(
                                   heightFactor: 1,
@@ -336,7 +345,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                           style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
                                         ),
                                 ),
-                                backgroundColor: Colors.white,
+                                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                                 elevation: 0,
                               );
 
@@ -360,6 +369,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   userCountry: _dropdownCountry.trim(),
                                   userCity: _dropdownCity.trim(),
                                   userLikes: [],
+                                  userLibrary: [],
                                 );
                                 await createUser(user, _auth.currentUser!.uid);
                               } else {
@@ -379,12 +389,16 @@ class _SignUpPageState extends State<SignUpPage> {
                             await _auth.signOut();
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar('Başarılı', 'Kayıt Başarılı.'));
+                            _emailController.clear();
+                            _passwordController.clear();
+                            _nameController.clear();
+                            _surnameController.clear();
                           }
                         },
                         child: Material(
                           elevation: 6.0,
                           borderRadius: BorderRadius.circular(8.0),
-                          color: Color(0xfff14b2c),
+                          color: Theme.of(context).primaryColor,
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 72.0, vertical: 16.0),
                             child: Text(

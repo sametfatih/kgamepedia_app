@@ -21,8 +21,8 @@ class _FpsCategoryState extends State<FpsCategory> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: myGameAppBar(context, FpsCategory.categorieName),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        appBar: myAppBarB(context, FpsCategory.categorieName),
         body: StreamBuilder<List<Game?>>(
           stream: _categoryHelper.readGamesForCategory(FpsCategory.categorieName),
           builder: (context, snapshot) => _buildWidgets.buildGameWidgetBForFps(snapshot),

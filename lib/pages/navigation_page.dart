@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
 
 import 'categories_page.dart';
 import 'home_page.dart';
@@ -20,9 +19,9 @@ class NavigationPage extends StatefulWidget {
 class _NavigationPageState extends State<NavigationPage> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions() => <Widget>[
-        HomePage(),
+        HomePage(currentUserID: widget.userID),
         CategoriesPage(),
-        SearchPage(),
+        SearchPage(currentUserID: widget.userID),
         LikesPage(currentUserID: widget.userID),
         ProfilePage(
           currentUserID: widget.userID,
@@ -35,13 +34,13 @@ class _NavigationPageState extends State<NavigationPage> {
       onWillPop: () async => false,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: Center(
             child: _widgetOptions().elementAt(_selectedIndex),
           ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).scaffoldBackgroundColor,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 20,
@@ -55,34 +54,34 @@ class _NavigationPageState extends State<NavigationPage> {
                 rippleColor: Colors.grey[300]!,
                 hoverColor: Colors.grey[100]!,
                 gap: 16,
-                activeColor: Colors.black,
+                activeColor: Theme.of(context).iconTheme.color,
                 iconSize: 26,
                 padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
                 duration: Duration(milliseconds: 400),
                 tabBackgroundColor: Colors.grey[100]!,
-                color: Colors.black,
+                color: Theme.of(context).iconTheme.color,
                 tabs: [
                   GButton(
                     // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 48),
-                    icon: LineIcons.home,
+                    icon: Icons.home_outlined,
                     text: 'Anasayfa',
                   ),
                   GButton(
                     // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 48),
-                    icon: LineIcons.icons,
+                    icon: Icons.category_outlined,
                     text: 'Kategoriler',
                   ),
                   GButton(
                     // padding: EdgeInsets.symmetric(vertical: 12, horizontal: 32),
-                    icon: LineIcons.search,
+                    icon: Icons.search,
                     text: 'Ara',
                   ),
                   GButton(
-                    icon: LineIcons.heart,
+                    icon: Icons.favorite_border_outlined,
                     text: 'Beğenilenler',
                   ),
                   GButton(
-                    icon: LineIcons.user,
+                    icon: Icons.person_outline_rounded,
                     text: 'Profil',
                   ),
                 ],
