@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -1006,17 +1007,20 @@ class BuildWidgets extends BuildWidgetsBase {
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) => routePage));
           },
-          child: Material(
-            elevation: 8.0,
-            borderRadius: BorderRadius.circular(8.0),
-            child: Container(
+          child: OpenContainer(
+            transitionType: ContainerTransitionType.fade,
+            transitionDuration: Duration(milliseconds: 700),
+            openBuilder: (context, _) => routePage,
+            closedColor: color,
+            closedShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+            closedElevation: 6.0,
+            closedBuilder: (context, _) => Container(
               padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(8.0)),
               child: Center(
                 child: Material(
-                  color: Colors.white,
+                  color: Colors.white.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(36.0),
-                  elevation: 6.0,
+                  elevation: 8.0,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
@@ -1085,11 +1089,8 @@ class BuildWidgets extends BuildWidgetsBase {
                 children: <Widget>[
                   gridViewItem(Icons.perm_identity_rounded, UserInformationPage(currentUser: user),
                       Theme.of(context).primaryColor),
-                  // gridViewItem(Icons.favorite_border_rounded, LikesPage(currentUserID: user.id.toString()),
-                  //     Theme.of(context).primaryColor),
                   gridViewItem(Icons.sports_esports_rounded, GameLibraryPage(currentUserID: user.id),
                       Theme.of(context).primaryColor),
-
                   gridViewItem(Icons.donut_small_rounded, ChartsPage(), Theme.of(context).primaryColor),
                   gridViewItem(Icons.settings_rounded, SettingsPage(), Theme.of(context).primaryColor),
                 ],

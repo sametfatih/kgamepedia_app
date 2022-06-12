@@ -68,7 +68,6 @@ class SQLGameHelper extends SQLHelper {
 
     await SQLGameHelper.addGameImageTable(imageName, gameimage.toString(), ref1.toString(), ref2.toString(),
         ref3.toString(), ref4.toString(), ref5.toString());
-    print('$imageName için Urls getirildi');
   }
 
   static Future<List<Map<String, dynamic>>> getGameImagesForId(String gameId) async {
@@ -93,7 +92,6 @@ class SQLMakerHelper extends SQLHelper {
     String ref = await database.ref('game_maker_logos').child('$gameMakerId.jpg').getDownloadURL();
 
     await SQLMakerHelper.addGameMakerImageTable(gameMakerId, ref.toString());
-    print('$gameMakerId için Urls getirildi');
   }
 
   static Future<List<Map<String, dynamic>>> getGameMakerImagesForId(String gameMakerId) async {
@@ -119,7 +117,6 @@ class SQLCategoryHelper extends SQLHelper {
     String ref = await database.ref('category_images').child('$categoryId.jpg').getDownloadURL();
 
     await SQLCategoryHelper.addCategoryImageTable(categoryId, ref.toString());
-    print('$categoryId için Urls getirildi');
   }
 
   static Future<List<Map<String, dynamic>>> getCategoryImagesForId(String categoryId) async {

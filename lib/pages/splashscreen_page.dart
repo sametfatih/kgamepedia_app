@@ -52,14 +52,16 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SplashScreenView(
-      navigateRoute: LoginSignUp(),
-      duration: 2500,
-      imageSize: 180,
-      imageSrc: "assets/images/logos/kgames2.png",
-      text: 'KGAMES',
-      textStyle: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    return SafeArea(
+      child: SplashScreenView(
+        navigateRoute: LoginSignUp(),
+        duration: 2000,
+        imageSize: 180,
+        imageSrc: "assets/images/logos/kgames2.png",
+        text: 'KGAMES',
+        textStyle: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
     );
   }
 }
